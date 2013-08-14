@@ -2,12 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="35425eb8-9e20-4894-80c0-cfef84619543" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="ShipWars.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="35425eb8-9e20-4894-80c0-cfef84619543" time="1376515907503" ignored="false" />
+    <file path="/Dummy.txt" changelist="35425eb8-9e20-4894-80c0-cfef84619543" time="1376517247886" ignored="false" />
     <file path="/test.txt" changelist="35425eb8-9e20-4894-80c0-cfef84619543" time="1376514572960" ignored="false" />
     <file path="/SomeMainClass.java" changelist="35425eb8-9e20-4894-80c0-cfef84619543" time="1376515888286" ignored="false" />
     <file path="/fragment.java" changelist="35425eb8-9e20-4894-80c0-cfef84619543" time="1376515890515" ignored="false" />
@@ -76,7 +76,7 @@
       <file leaf-file-name="pom.xml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="13" column="45" selection-start="503" selection-end="503" vertical-scroll-proportion="0.0">
+            <state line="38" column="41" selection-start="1327" selection-end="1327" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -85,7 +85,7 @@
       <file leaf-file-name=".gitignore" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="1" column="0" selection-start="12" selection-end="12" vertical-scroll-proportion="0.021067416">
+            <state line="3" column="7" selection-start="38" selection-end="38" vertical-scroll-proportion="0.06320225">
               <folding />
             </state>
           </provider>
@@ -498,7 +498,11 @@
       <created>1376515917547</created>
       <updated>1376515917547</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="git ignore">
+      <created>1376517250831</created>
+      <updated>1376517250831</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -574,7 +578,7 @@
     <option name="WRAP_WHEN_TYPING_REACHES_RIGHT_MARGIN" value="false" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="Test" />
+    <option name="LAST_COMMIT_MESSAGE" value="git ignore" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -589,6 +593,7 @@
     <option name="SHOW_FILE_HISTORY_AS_TREE" value="false" />
     <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.6" />
     <MESSAGE value="Test" />
+    <MESSAGE value="git ignore" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -645,14 +650,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="45" selection-start="503" selection-end="503" vertical-scroll-proportion="0.0">
+        <state line="38" column="41" selection-start="1327" selection-end="1327" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="0" selection-start="12" selection-end="12" vertical-scroll-proportion="0.021067416">
+        <state line="3" column="7" selection-start="38" selection-end="38" vertical-scroll-proportion="0.06320225">
           <folding />
         </state>
       </provider>
