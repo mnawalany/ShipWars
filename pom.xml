@@ -10,18 +10,21 @@
 
     <packaging>war</packaging>
 
-    <properties>
-        <!-- Adapt this to a version found on
-             http://central.maven.org/maven2/org/eclipse/jetty/jetty-maven-plugin/
-          -->
-        <jettyVersion>9.0.3</jettyVersion>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.eclipse.jetty</groupId>
             <artifactId>jetty-server</artifactId>
             <version>9.0.4.v20130625</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>3.2.4.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>jstl</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
         </dependency>
     </dependencies>
 
@@ -32,11 +35,15 @@
                 <artifactId>maven-war-plugin</artifactId>
                 <configuration>
                     <webXml>src\WebApp\WEB-INF\web.xml</webXml>
+                    <webappDirectory>src/WebApp</webappDirectory>
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
+                <configuration>
+                    <webAppSourceDirectory>src/WebApp</webAppSourceDirectory>
+                </configuration>
             </plugin>
         </plugins>
     </build>
