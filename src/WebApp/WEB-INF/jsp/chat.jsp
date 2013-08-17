@@ -9,20 +9,30 @@
 
         (function() {
 
-            var request = $.ajax({
-                url: "/chatMessages.html",
-                type: "GET",
-                dataType: "json"
-            });
+            function getMessages() {
+                var request = $.ajax({
+                    url: "/chatMessages.html",
+                    type: "GET",
+                    dataType: "json"
+                });
 
-            request.done(function(msg) {
+                request.done(updateMessages);
+
+                request.fail(function(jqXHR, textStatus) {
+                    alert( "Request failed: " + textStatus );
+                });
+            }
+
+            function updateMessages(msg) {
                 console.log(msg);
-            });
+                $("#messages").html("");
+                for (var i=0; i<msg.length; i++) {
+                    $("#messages").append($("<div>").html(msg[i]));
+                }
+//                window.setTimeout(getMessages, 3000);
+            }
 
-            request.fail(function(jqXHR, textStatus) {
-                alert( "Request failed: " + textStatus );
-            });
-
+            getMessages();
 
         })();
 
@@ -33,11 +43,9 @@
 
 <h3>Chat:</h3>
 
-<c:forEach items="${messages}" var="msg">
-    <div>
-        <c:out value="${msg}" />
-    </div>
-</c:forEach>
+<div id="messages">
+    Loading...
+</div>
 
 <form action="/chatMessage.html" method="post">
     <input type="text" name="message" />
