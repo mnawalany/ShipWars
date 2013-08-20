@@ -5,14 +5,17 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.converter.json.Jackson2ObjectMapperFactoryBean;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import pl.mibar.shipWars.game.model.Game;
 import pl.mibar.shipWars.game.model.dto.AllGamesDTO;
+import pl.mibar.shipWars.game.model.dto.UserGameDTO;
 import pl.mibar.shipWars.loginPage.User;
 import pl.mibar.shipWars.userSession.UserSession;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transaction;
 import java.io.IOException;
 
 @Controller
@@ -35,34 +38,23 @@ public class GamesController {
 
     @RequestMapping(value = "game.html", method = RequestMethod.GET)
     public ModelAndView getGamePage(User user, @RequestParam int id) {
-        Game game = gamesService.getExistingGame(id);
-
-        ModelAndView mav = new ModelAndView();
+        UserGameDTO game = gamesService.getExistingGameDao(id, user);
+        ModelAndView mav = new ModelAndView("game");
         mav.addObject("game", game);
-        mav.addObject("player", game.getPlayer(user));
-
-        if (game.getStatus() == Game.GameStatus.WAITING) {
-
-            mav.setViewName("game");
-            mav.addObject("isInTheGame", game.containsUser(user));
-
-        } else if (game.getStatus() == Game.GameStatus.STARTED) {
-            mav.setViewName("shipSetup");
-        }
         return mav;
     }
 
     @RequestMapping(value = "join.html", method = RequestMethod.GET)
     public ModelAndView joinGame(User user, @RequestParam int id) {
         Game game = gamesService.getExistingGame(id);
-        game.join(user);
+        gamesService.joinToGame(game, user);
         return redirectToGamePage(game);
     }
 
     @RequestMapping(value = "leave.html", method = RequestMethod.GET)
     public ModelAndView leaveGame(User user, @RequestParam int id) {
         Game game = gamesService.getExistingGame(id);
-        gamesService.leaveGame(game, user);
+        gamesService.leaveGame(id, user);
         return new ModelAndView("redirect:/main.html");
     }
 
@@ -77,8 +69,7 @@ public class GamesController {
     @ResponseBody
     public String getAllGames(User user, HttpServletRequest request) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-        AllGamesDTO allGamesDTO = new AllGamesDTO(gamesService.getWaitingGames(), gamesService.getUserGames(user), user);
-        return mapper.writeValueAsString(allGamesDTO);
+        return mapper.writeValueAsString(gamesService.getAllGamesDTO(user));
     }
 
     @ExceptionHandler(GameException.class)

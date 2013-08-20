@@ -14,12 +14,14 @@ public class UserGameDTO {
 
     private final Game.GameStatus status;
 
-    public UserGameDTO(Game game, User user) {
+    public  UserGameDTO(Game game, User user) {
         id = game.getId();
-        Player userPlayer = game.getPlayer(user);
-        Player opponentPlayer = game.getOtherPlayer(user);
-        this.userPlayer = userPlayer == null ? null : new PlayerDTO(userPlayer);
-        this.opponentPlayer = opponentPlayer == null ? null : new PlayerDTO(opponentPlayer);
+//        Player userPlayer = game.getPlayer(user);
+//        Player opponentPlayer = game.getOtherPlayer(user);
+//        this.userPlayer = userPlayer == null ? null : new PlayerDTO(userPlayer);
+//        this.opponentPlayer = opponentPlayer == null ? null : new PlayerDTO(opponentPlayer);
+        this.userPlayer = null;
+        this.opponentPlayer = null;
         status = game.getStatus();
     }
 

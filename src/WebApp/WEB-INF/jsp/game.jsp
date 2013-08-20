@@ -18,46 +18,46 @@
 </div>
 
 
-<div>
-    <div>user1:
-        <c:choose>
-            <c:when test="${game.player1 != null}" >
-                <c:out value="${game.player1.user.login}"/> - <c:out value="${game.player1.status}"/>
-            </c:when>
-            <c:when test="${isInTheGame}" >
-                WAITING
-            </c:when>
-            <c:otherwise>
-                <a href="/join.html?id=${game.id}">JOIN</a>
-            </c:otherwise>
-        </c:choose>
-    </div>
-    <div>
-        user2:
-        <c:choose>
-            <c:when test="${game.player2 != null}" >
-                <c:out value="${game.player2.user.login}"/>- <c:out value="${game.player2.status}"/>
-            </c:when>
-            <c:when test="${isInTheGame}" >
-                WAITING
-            </c:when>
-            <c:otherwise>
-                <a href="/join.html?id=${game.id}">JOIN</a>
-            </c:otherwise>
-        </c:choose>
-    </div>
-</div>
+<%--<div>--%>
+    <%--<div>user1:--%>
+        <%--<c:choose>--%>
+            <%--<c:when test="${game.player1 != null}" >--%>
+                <%--<c:out value="${game.player1.user.login}"/> - <c:out value="${game.player1.status}"/>--%>
+            <%--</c:when>--%>
+            <%--<c:when test="${isInTheGame}" >--%>
+                <%--WAITING--%>
+            <%--</c:when>--%>
+            <%--<c:otherwise>--%>
+                <%--<a href="/join.html?id=${game.id}">JOIN</a>--%>
+            <%--</c:otherwise>--%>
+        <%--</c:choose>--%>
+    <%--</div>--%>
+    <%--<div>--%>
+        <%--user2:--%>
+        <%--<c:choose>--%>
+            <%--<c:when test="${game.player2 != null}" >--%>
+                <%--<c:out value="${game.player2.user.login}"/>- <c:out value="${game.player2.status}"/>--%>
+            <%--</c:when>--%>
+            <%--<c:when test="${isInTheGame}" >--%>
+                <%--WAITING--%>
+            <%--</c:when>--%>
+            <%--<c:otherwise>--%>
+                <%--<a href="/join.html?id=${game.id}">JOIN</a>--%>
+            <%--</c:otherwise>--%>
+        <%--</c:choose>--%>
+    <%--</div>--%>
+<%--</div>--%>
 
-<c:if test="${isInTheGame}">
-    <div>
-        <a href="/leave.html?id=${game.id}">LEAVE GAME</a>
-    </div>
-</c:if>
-<c:if test="${game.full && player.status == 'WAITING'}">
-    <div>
-        <a href="/start.html?id=${game.id}">START GAME</a>
-    </div>
-</c:if>
+<%--<c:if test="${isInTheGame}">--%>
+    <%--<div>--%>
+        <%--<a href="/leave.html?id=${game.id}">LEAVE GAME</a>--%>
+    <%--</div>--%>
+<%--</c:if>--%>
+<%--<c:if test="${game.full && player.status == 'WAITING'}">--%>
+    <%--<div>--%>
+        <%--<a href="/start.html?id=${game.id}">START GAME</a>--%>
+    <%--</div>--%>
+<%--</c:if>--%>
 
 </body>
 </html>

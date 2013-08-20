@@ -3,36 +3,56 @@ package pl.mibar.shipWars.game.model;
 
 import pl.mibar.shipWars.loginPage.User;
 
-public class Game implements PlayerListener {
+import javax.persistence.*;
+
+@Entity
+@Table(name = "game")
+@SequenceGenerator(name="game_id_seq",sequenceName="game_id_seq")
+public class Game {
 
     public enum GameStatus {
         WAITING, STARTED
     }
 
-    private static int idSequence = 1;
+    @Column(name = "game_id")
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="game_id_seq")
+    private int id;
 
-    private final int id = idSequence++;
-
+    @OneToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "player_1_id")
     private Player player1;
 
+    @OneToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "player_2_id")
     private Player player2;
 
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
     private GameStatus status = GameStatus.WAITING;
 
     public int getId() {
         return id;
     }
 
-    public void setUser1(User user1) {
-        this.player1 = new Player(user1, this);
-    }
-
-    public void setUser2(User user2) {
-        this.player2 = new Player(user2, this);
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Player getPlayer1() {
         return player1;
+    }
+
+    public void setPlayer1(Player player1) {
+        this.player1 = player1;
+    }
+
+    public Player getPlayer2() {
+        return player2;
+    }
+
+    public void setPlayer2(Player player2) {
+        this.player2 = player2;
     }
 
     public GameStatus getStatus() {
@@ -43,10 +63,7 @@ public class Game implements PlayerListener {
         this.status = status;
     }
 
-    public Player getPlayer2() {
-        return player2;
-    }
-
+    @Transient
     public Player getPlayer(User user) {
         if (isUser1(user)) {
             return player1;
@@ -57,67 +74,11 @@ public class Game implements PlayerListener {
         }
     }
 
-    public Player getOtherPlayer(User user) {
-        if (isUser1(user)) {
-            return player2;
-        } else if (isUser2(user)) {
-            return player1;
-        } else {
-            return null;
-        }
-    }
-
-    public void join(User user) {
-        if (player1 == null) {
-            setUser1(user);
-        } else if (player2 == null) {
-            setUser2(user);
-        } else {
-            throw new IllegalStateException("Cannot join game");
-        }
-    }
-
-    public void removeUser(User user) {
-        if (isUser1(user)) {
-            player1 = null;
-            if (player2 != null) {
-                player2.setStatus(Player.PlayerStatus.WAITING);
-            }
-        } else if (isUser2(user)) {
-            player2 = null;
-            if (player1 != null) {
-                player1.setStatus(Player.PlayerStatus.WAITING);
-            }
-        } else {
-            throw new IllegalStateException("Cannot leave game");
-        }
-    }
-
     private boolean isUser2(User user) {
         return player2 != null && player2.getUser().getLogin().equals(user.getLogin());
     }
 
     private boolean isUser1(User user) {
         return player1 != null && player1.getUser().getLogin().equals(user.getLogin());
-    }
-
-    public boolean isEmpty() {
-        return player1 == null && player2 == null;
-    }
-
-    public boolean isFull() {
-        return player1 != null && player2 != null;
-    }
-
-    @Override
-    public void playerStatusChanged(Player player, Player.PlayerStatus status) {
-        if (player1.getStatus() == Player.PlayerStatus.READY && player2.getStatus() == Player.PlayerStatus.READY) {
-            setStatus(GameStatus.STARTED);
-        }
-
-    }
-
-    public boolean containsUser(User user) {
-        return getPlayer(user) != null;
     }
 }
