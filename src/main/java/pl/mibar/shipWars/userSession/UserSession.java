@@ -1,4 +1,6 @@
-package pl.mibar.shipWars.loginPage;
+package pl.mibar.shipWars.userSession;
+
+import pl.mibar.shipWars.loginPage.User;
 
 public class UserSession {
 

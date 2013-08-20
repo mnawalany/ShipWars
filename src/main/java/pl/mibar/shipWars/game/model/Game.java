@@ -1,4 +1,4 @@
-package pl.mibar.shipWars;
+package pl.mibar.shipWars.game.model;
 
 
 import pl.mibar.shipWars.loginPage.User;
@@ -52,6 +52,16 @@ public class Game implements PlayerListener {
             return player1;
         } else if (isUser2(user)) {
             return player2;
+        } else {
+            return null;
+        }
+    }
+
+    public Player getOtherPlayer(User user) {
+        if (isUser1(user)) {
+            return player2;
+        } else if (isUser2(user)) {
+            return player1;
         } else {
             return null;
         }

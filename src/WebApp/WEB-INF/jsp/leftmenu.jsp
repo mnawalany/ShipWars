@@ -6,15 +6,10 @@
     <hr />
 
     <h3>Your Games:</h3>
-    <c:forEach items="${userGames}" var="userGame">
-        <div>
-            <c:set var="gameStyle" value="" />
-            <c:if test="${userGame.id == game.id}">
-                <c:set var="gameStyle" value="background: #aaaaaa;" />
-            </c:if>
-            <div style="${gameStyle}"><a href="/game.html?id=${userGame.id}">game ${userGame.id}</a></div>
-        </div>
-    </c:forEach>
+    <div id="leftUserGames">
+        <div>Loading...</div>
+    </div>
+
     <br /><br />
     <div>
         < = <a href="/main.html">All games</a>

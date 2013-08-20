@@ -5,14 +5,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import pl.mibar.shipWars.GamesService;
+import pl.mibar.shipWars.game.GamesService;
+import pl.mibar.shipWars.userSession.UserSession;
+import pl.mibar.shipWars.userSession.UserSessionWebManager;
 
 import javax.servlet.http.HttpSession;
 
 @Controller
 public class LoginController {
+
+    public static final String LOGIN_HTML = "/login.html";
+    public static final String CREATE_USER_HTML = "/createUser.html";
+    public static final String LOGOUT_HTML = "/logout.html";
+
+    public static final String REDIRECT_LOGIN = "redirect:" + LOGIN_HTML;
 
     @Autowired
     private LoginService loginService;
@@ -20,19 +27,22 @@ public class LoginController {
     @Autowired
     private GamesService gamesService;
 
-    @RequestMapping(value = "login.html", method = RequestMethod.GET)
+    @Autowired
+    private UserSessionWebManager userSessionWebManager;
+
+    @RequestMapping(value = LOGIN_HTML, method = RequestMethod.GET)
     public String getLoginPage() {
         return "login";
     }
 
-    @RequestMapping(value = "login.html", method = RequestMethod.POST)
+    @RequestMapping(value = LOGIN_HTML, method = RequestMethod.POST)
     public ModelAndView performLogin(String login, HttpSession session) {
         ModelAndView mav = new ModelAndView("login");
 
         User user = loginService.getUser(login);
 
         if (user != null) {
-            session.setAttribute(UserArgumentResolver.USER_SESSION, new UserSession(user));
+            userSessionWebManager.saveUserInSession(user, session);
             mav.setViewName("redirect:/main.html");
         } else {
             mav.addObject("error", "Login not found");
@@ -40,7 +50,7 @@ public class LoginController {
         return mav;
     }
 
-    @RequestMapping(value = "createUser.html", method = RequestMethod.POST)
+    @RequestMapping(value = CREATE_USER_HTML, method = RequestMethod.POST)
     public ModelAndView createUser(String login, HttpSession session) {
         ModelAndView mav = new ModelAndView("login");
 
@@ -48,20 +58,19 @@ public class LoginController {
             mav.addObject("createUserError", "Login already exists");
         } else {
             User user = loginService.createUser(login);
-            session.setAttribute(UserArgumentResolver.USER_SESSION, new UserSession(user));
-
+            userSessionWebManager.saveUserInSession(user, session);
             mav.setViewName("redirect:/main.html");
         }
         return mav;
     }
 
-    @RequestMapping(value = "logout.html", method = RequestMethod.GET)
-    public ModelAndView logout(UserSession userSession, HttpSession session) {
-        if (userSession != null) {
-            gamesService.leaveAllGames(userSession.getUser());
+    @RequestMapping(value = LOGOUT_HTML, method = RequestMethod.GET)
+    public ModelAndView logout(User user, HttpSession session) {
+        if (user != null) {
+            gamesService.leaveAllGames(user);
         }
-        session.removeAttribute(UserArgumentResolver.USER_SESSION);
-        return new ModelAndView("redirect:/login.html");
+        session.invalidate();
+        return new ModelAndView(REDIRECT_LOGIN);
     }
 
 }

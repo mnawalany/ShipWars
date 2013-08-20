@@ -1,6 +1,8 @@
-package pl.mibar.shipWars;
+package pl.mibar.shipWars.game;
 
 import org.springframework.stereotype.Service;
+import pl.mibar.shipWars.game.model.Game;
+import pl.mibar.shipWars.game.model.Player;
 import pl.mibar.shipWars.loginPage.User;
 
 import java.util.*;
@@ -26,8 +28,19 @@ public class GamesService {
         return games.get(id);
     }
 
+    public Game getExistingGame(int id) {
+        Game game = getGame(id);
+        if (game == null) {
+            throw new GameException("Game doesn't exists");
+        }
+        return game;
+    }
+
     public void leaveGame(Game game, User user) {
         game.removeUser(user);
+        if (game.getPlayer(user) == null) {
+            throw new GameException("Cannot leave this game");
+        }
         if (game.isEmpty()) {
             games.remove(game.getId());
         }
@@ -50,6 +63,9 @@ public class GamesService {
     }
 
     public void startGame(Game game, User user) {
+        if (game.getPlayer(user) == null) {
+            throw new GameException("Cannot start this game");
+        }
         game.getPlayer(user).setStatus(Player.PlayerStatus.READY);
     }
 }

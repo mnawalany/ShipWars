@@ -18,7 +18,8 @@ public class LoginService {
     }
 
     public User createUser(String login) {
-        User user = new User(login);
+        User user = new User();
+        user.setLogin(login);
         model.addUser(user);
         return user;
     }

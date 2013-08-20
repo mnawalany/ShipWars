@@ -1,4 +1,4 @@
-package pl.mibar.shipWars;
+package pl.mibar.shipWars.game.model;
 
 
 import pl.mibar.shipWars.loginPage.User;
